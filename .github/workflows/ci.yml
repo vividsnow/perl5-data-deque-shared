@@ -84,7 +84,7 @@ jobs:
           perl-version: '5.40'
       - run: cpanm -n Devel::PPPort BSD::Resource Time::HiRes
       - run: perl Makefile.PL && make
-      - run: AUTHOR_TESTING=1 prove -b -j2 xt/*.t
+      - run: AUTHOR_TESTING=1 prove -b xt/*.t
         env:
           AUTHOR_TESTING: 1
 
@@ -100,6 +100,8 @@ jobs:
       - run: cpanm -n Devel::PPPort
       - run: perl Makefile.PL && make
       - name: test under valgrind
+        env:
+          PERL_DESTRUCT_LEVEL: 2
         run: |
           for t in t/*.t; do
             echo "== valgrind $t =="
